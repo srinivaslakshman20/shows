@@ -1,0 +1,5 @@
+datasource:
+  username: sa
+  url: jdbc:h2:mem:showsdb
+  driverClassName: org.h2.Driver
+  password: ''

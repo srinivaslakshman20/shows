@@ -1,0 +1,631 @@
+openapi: 3.0.3
+info:
+  description: This is a shows management system
+  version: 1.0.0
+  title: Shows management
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Sample
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /cinemas:
+    post:
+      tags:
+        - Cinemas
+      summary: Add a new Cinema
+      operationId: addNewCinema
+      requestBody:
+        description: Request body for adding a new cinema to the inventory
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCinemaRequest'
+      responses:
+        '200':
+          description: Excepted response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+        '409':
+          description: Cinema already present in the inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Incorrect request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cinemas/{cinemaId}:
+    get:
+      tags:
+        - Cinemas
+      summary: Get Cinema details for a cinemaId
+      operationId: getCinemaDetails
+      parameters:
+        - in: path
+          name: cinemaId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a Cinema
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+        '404':
+          description: Cinema not found in inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Incorrect request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Cinemas
+      summary: Update Cinema details for a cinemaId
+      operationId: updateCinemaDetails
+      parameters:
+        - in: path
+          name: cinemaId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a Cinema
+      requestBody:
+        description: Show that needs to be added to the inventory
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShowRequest'
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cinema'
+        '404':
+          description: Cinema not found in inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Incorrect request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /theaters:
+    post:
+      tags:
+        - Theaters
+      summary: Add a new theater
+      operationId: addNewTheater
+      requestBody:
+        description: Request body for adding a new theather to the inventory
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTheaterRequest'
+      responses:
+        '200':
+          description: Excepted response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Theater'
+        '409':
+          description: Theater already present in the inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Incorrect request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /theaters/{theaterId}:
+    get:
+      tags:
+        - Theaters
+      summary: Get Theater details for a theaterId
+      operationId: getTheaterDetails
+      parameters:
+        - in: path
+          name: theaterId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a Theater
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Theater'
+        '404':
+          description: Cinema not found in inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Incorrect request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Theaters
+      summary: Update Theater details for a cinemaId
+      operationId: updateTheaterDetails
+      parameters:
+        - in: path
+          name: theaterId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a Theater
+      requestBody:
+        description: Show that needs to be added to the inventory
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShowRequest'
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Theater'
+        '404':
+          description: Cinema not found in inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Incorrect request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /shows/{cinemaId}/{screenId}:
+    post:
+      tags:
+        - Shows
+      summary: Add a new show
+      operationId: addNewShow
+      parameters:
+        - in: path
+          name: screenId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a screen
+        - in: path
+          name: cinemaId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a Cinema
+      requestBody:
+        description: Show that needs to be added to the inventory
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShowRequest'
+        required: true
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+  /shows/{showId}:
+    summary: Get a show for a showId
+    get:
+      tags:
+        - Shows
+      summary: Get Description of a show including price, timings
+      operationId: getShowPerShowId
+      parameters:
+        - in: path
+          name: showId
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: Id of a Show
+        - in: query
+          name: numberOfTicketsReqd
+          schema:
+            type: integer
+            format: int64
+          required: true
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+        '400':
+          description: Invalid parameters supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Shows
+      summary: Update the show details
+      operationId: updateShow
+      parameters:
+        - in: path
+          name: showId
+          schema:
+            type: string
+          required: true
+          description: Id of a Show
+      requestBody:
+        description: Show that needs to be updated to the inventory
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShowRequest'
+        required: true
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+        '400':
+          description: Invalid parameters supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Shows
+      summary: Update the show details
+      operationId: deleteShow
+      parameters:
+        - in: path
+          name: showId
+          schema:
+            type: string
+          required: true
+          description: Id of a Show
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+        '400':
+          description: Invalid parameters supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /shows/{city}/{date}:
+    get:
+      tags:
+        - Shows
+      summary: Get all shows per city
+      parameters:
+        - in: path
+          name: city
+          schema:
+            type: string
+          required: true
+          description: City which shows run
+        - in: path
+          name: date
+          schema:
+            type: string
+          required: true
+          description: Shows for a particular date.
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+        400:
+          description: Invalid parameters supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /shows/{city}/{language}:
+    get:
+      tags:
+        - Shows
+      summary: Get all shows per city per language
+      parameters:
+        - in: path
+          name: city
+          schema:
+            type: string
+          required: true
+          description: City which shows run
+        - in: path
+          name: language
+          schema:
+            type: string
+          required: true
+          description: Shows for a language
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+        400:
+          description: Invalid parameters supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /shows/{city}/{date}/{theater}:
+    get:
+      tags:
+        - Shows
+      summary: Get all shows per city per theater
+      parameters:
+        - in: path
+          name: city
+          schema:
+            type: string
+          required: true
+          description: City which shows run
+        - in: path
+          name: theater
+          schema:
+            type: string
+          required: true
+          description: Shows for a theater
+        - in: path
+          name: date
+          schema:
+            type: string
+          required: true
+          description: Shows for a particular date.
+      responses:
+        '200':
+          description: Success output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Show'
+        400:
+          description: Invalid parameters supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: ERR-101
+        description:
+          type: string
+          example: Required parameter is missing
+    Show:
+      type: object
+      properties:
+        showId:
+          type: integer
+          format: int64
+          example: 456
+        cinema:
+          $ref: '#/components/schemas/Cinema'
+        theater:
+          $ref: '#/components/schemas/Theater'
+        showOffers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShowOffer'
+        showTotalPrice:
+          type: integer
+          format: int64
+          example: 250
+        discountedTotalPrice:
+          type: integer
+          format: int64
+          example: 225
+        showTime:
+          type: string
+          example: "2021-09-17 08:45:00.000"
+    ShowOffer:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "OFFER-3TICKET"
+        description:
+          type: string
+          example: "50% discount on the third ticket"
+    Theater:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 501
+        name:
+          type: string
+          example: PVR Cinemas
+        description:
+          type: string
+          example: PVR Cinemas in bangalore
+        address1:
+          type: string
+          example: 100 abc road
+        address2:
+          type: string
+          example: R Block
+        city:
+          type: string
+          example: Bangalore
+        state:
+          type: string
+          example: Karnataka
+        zip:
+          type: string
+          example: 560001
+        category:
+          type: string
+          example: Multiplex
+        phone:
+          type: string
+          example: 12245-67890
+        screens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Screen'
+    Screen:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Screen_1
+        seatCapacity:
+          type: integer
+          format: int64
+          example: 200
+    CreateShowRequest:
+      type: object
+      required:
+        - showPrice
+        - showTime
+      properties:
+        showPrice:
+          type: string
+          example: 175
+        showTime:
+          type: string
+          example: "2021-09-17 08:45:00"
+    CreateCinemaRequest:
+      type: object
+      required:
+        - cinema
+      properties:
+        cinema:
+          $ref: '#/components/schemas/Cinema'
+    CreateTheaterRequest:
+      type: object
+      required:
+        - theater
+      properties:
+        theater:
+          $ref: '#/components/schemas/Theater'
+    Cinema:
+      type: object
+      required:
+        - name
+        - description
+        - castMembers
+        - languages
+        - genre
+        - durationInMins
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 345
+        name:
+          type: string
+          example: Fast and Furious 6
+        description:
+          type: string
+          example: Hobbs is tasked with catching a team of mercenary drivers who manage to evade him every time.
+        castMembers:
+          type: string
+          example: Paul Walker, Vin Diesel, Michelle Rodriguez
+        languages:
+          type: string
+          example: English, Hindi
+        genre:
+          type: string
+          example: Action
+        durationInMins:
+          type: integer
+          format: int64
+          example: 112
