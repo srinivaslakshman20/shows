@@ -1,3 +1,11 @@
+About the project:
+This is a microservices Spring-boot based project based on Spring, Java technology. This project will be used for creating, updating, deleting cinemas, theaters, shows, show-offers and reservations. This can be used by all types of actors in the system. 
+
+Developer Notes:
+- Since a top-down approach is being followed to create any api, the start point of the project is the `openapi.yaml` file present in `src\main\resources\static` folder. 
+- Any modifications to this file, followed command need to be executed `mvn clean generate-sources`. This command will generate api (interface with default method), java models automatically which can be used for development.
+
+
 Prerequisites to run the project:
 - Any IDE (Eclipse, Intelli J, NetBeans)
 - JDK 11
